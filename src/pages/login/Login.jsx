@@ -8,21 +8,21 @@ import { AuthContext } from "../../context/AuthContext";
 const Login = () => { 
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
 
-  const navigate = useNavigate()
+  const navitage = useNavigate()
 
-  const {dispatch} = useContext(AuthContext);
-  
+  const {display} = useContext(AuthContext);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        const user = userCredential.user; 
-        dispatch({type:"LOGIN", playload:user});
-        navigate("/");
+        const user = userCredential.user;
+        dispatch({type:"LOGIN", payload:user}); 
+        navitage("/");
       })
       .catch((error) => {
         setError(true);

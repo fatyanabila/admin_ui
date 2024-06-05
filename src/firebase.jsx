@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDNf7dZJF8aLWm6TGaVjmu6oZ8ekKQ9iG8",
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: "store-tutorial-d0bf2.firebaseapp.com",
   projectId: "store-tutorial-d0bf2",
   storageBucket: "store-tutorial-d0bf2.appspot.com",
