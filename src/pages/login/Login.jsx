@@ -12,7 +12,7 @@ const Login = () => {
 
   const navitage = useNavigate()
 
-  const {display} = useContext(AuthContext);
+  const {dispatch} = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
