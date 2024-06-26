@@ -1,7 +1,7 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {collection, onSnapshot, deleteDoc, doc} from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -64,13 +64,16 @@ const actionColumn = [
     },
   },
 ];
+
+console.log(data);
+
 //const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
         {type.toUpperCase()}
         <Link to="/users/new" className="link">
-          <button className="addNewButton">Add New</button>
+          Add New
         </Link>
       </div>
       <DataGrid className="datagrid"
