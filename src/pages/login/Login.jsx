@@ -4,33 +4,36 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { DarkModeContext } from "../../context/darkModeContext";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 
 const Login = () => { 
+  const { darkMode, dispatch: darkModeDispatch } = useContext(DarkModeContext);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navitage = useNavigate()
-
-  const {dispatch} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { dispatch } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    signInWithEmailAndPassword(auth, email, password)
+	 signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        dispatch({type:"LOGIN", payload:user}); 
-        navitage("/");
+        dispatch({ type: "LOGIN", payload: user });
+        navigate("/");
       })
-      .catch((error) => {
+      .catch(() => {
         setError(true);
       });
   };
 
   return (
-    <div className="login">
+    <div className={'login ${darkMode ? "dark" : ""}'}>
       <form data-testid="form" onSubmit={handleLogin}>
         <input
           id="email"
@@ -39,13 +42,28 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
-        id="password"
+          id="password"
           type="password"
           placeholder="Enter your password" 
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" data-testid="submit">Login</button>
+	<button type="submit" data-testid="submit">Login</button>
         {error && <span>Wrong email or password!</span>}
+        <div className="items">
+          <div className="item">
+            {darkMode ? (
+              <LightModeOutlinedIcon 
+                className="icon" 
+                onClick={() => darkModeDispatch({ type: "TOGGLE" })} 
+              />
+            ) : (
+              <DarkModeOutlinedIcon 
+                className="icon" 
+                onClick={() => darkModeDispatch({ type: "TOGGLE" })} 
+              />
+            )}
+          </div>
+        </div>
       </form>
     </div>
   );
